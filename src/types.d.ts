@@ -3,7 +3,7 @@ export type Visibility = 'great' | 'good' | 'ok' | 'poor';
 
 export interface DiaryEntry {
   id: number;
-  data: string;
+  date: string;
   weather: Weather;
   visibility: Visibility;
   comment: string;
