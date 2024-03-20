@@ -1,18 +1,18 @@
-import express from 'express';
+import express from 'express'
 
-import diaryRouter from './routes/diaries';
+import diaryRouter from './routes/diaries'
 
-const app = express();
-app.use(express.json());
+const app = express()
+app.use(express.json())
 
-const PORT = 8000;
+const PORT = 8000
 
 app.get('/ping', (_req, res) => {
-  console.log('Someone pinged here!');
-  res.send('pong');
-});
+  console.log('Someone pinged here!')
+  res.send('pong')
+})
 
-app.use('/api/diaries', diaryRouter);
+app.use('/api/diaries', diaryRouter)
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+  console.log(`Server is running on port ${PORT}`)
+})
