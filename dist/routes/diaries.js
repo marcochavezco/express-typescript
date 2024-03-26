@@ -28,11 +28,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const diaryServices = __importStar(require("../services/diaryServices"));
+const utils_1 = __importDefault(require("../utils"));
 const router = express_1.default.Router();
+router.get('/:id', (req, res) => {
+    const diary = diaryServices.findById(+req.params.id);
+    if (diary === undefined) {
+        return res.status(404).json({ message: 'Diary not found.' });
+    }
+    return res.json(diary);
+});
 router.get('/', (_req, res) => {
     res.send(diaryServices.getEntriesWithoutSensitiveInfo());
 });
-router.post('/', (_req, res) => {
-    res.send('Saving a diary!');
+router.post('/', (req, res) => {
+    try {
+        const addedDiaryEntry = (0, utils_1.default)(req.body);
+        const newDiaryEntry = diaryServices.addDiary(addedDiaryEntry);
+        res.json(newDiaryEntry);
+    }
+    catch (e) {
+        res.status(400).send(e.message);
+    }
 });
 exports.default = router;
